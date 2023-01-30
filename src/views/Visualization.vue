@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import * as echarts from 'echarts'
+import jsondata from '@/assets/data/test.json'
 
 onMounted(() => {
+  console.log(jsondata)
   const chart1 = echarts.init(document.getElementById('chart1') as HTMLElement)
   
   chart1.setOption({
