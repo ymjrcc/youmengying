@@ -13,6 +13,21 @@ const router = createRouter({
       name: 'author',
       component: () => import('../views/Author.vue')
     },
+    {
+      path: '/original',
+      name: 'original',
+      component: () => import('../views/Original.vue')
+    },
+    {
+      path: '/comments',
+      name: 'comments',
+      component: () => import('../views/Comments.vue')
+    },
+    {
+      path: '/visualization',
+      name: 'visualization',
+      component: () => import('../views/Visualization.vue')
+    },
   ]
 })
 
