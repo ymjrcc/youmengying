@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import type { Ref } from 'vue';
+import { useRoute } from 'vue-router'
 import xu from '@/assets/data/xu.json'
 import original from '@/assets/data/original.json'
 
 interface IXu {
-  id: string;
+  id: number;
   title: string;
   author: string;
   text: string[];
@@ -20,8 +21,28 @@ interface IOriginal {
     }[];
 }
 
-const curXu: Ref<IXu | null> = ref(xu[0])
+const curXu: Ref<IXu | null> = ref(null)
 const curOriginal: Ref<IOriginal | null> = ref(null)
+
+const route = useRoute()
+
+onMounted(() => {
+  if(!route.query || !route.query.id){
+    curXu.value = xu[0]
+    return
+  }
+  if(Number(route.query.id) > 0){
+    const value = original.find(i => i.id===Number(route.query.id))
+    if(value){
+      curOriginal.value = value
+    }
+  }else{
+    const value = xu.find(i => i.id===Number(route.query.id))
+    if(value){
+      curXu.value = value
+    }
+  }
+})
 
 const handleClick = (item: IXu | IOriginal, type: number) => {
   if(type===1){
@@ -35,23 +56,28 @@ const handleClick = (item: IXu | IOriginal, type: number) => {
 </script>
 
 <template>
-  <div class="flex">
-    <div class="w-50">
-      <ul class="border mr-10">
+  <div class="flex h-full">
+    <div class="w-60">
+      <ul class="border mr-10 h-full overflow-auto">
         <li 
           v-for="item in xu" 
           :key="item.id" 
-          class="py-2 px-4 cursor-pointer hover:bg-green-100"
+          class="py-2 px-6 cursor-pointer hover:bg-green-100"
           :class="{cur: item.id===(curXu && curXu.id)}"
           @click="handleClick(item, 1)"
         >{{ item.title }}</li>
         <li 
           v-for="item in original" 
           :key="item.id" 
-          class="py-2 px-4 cursor-pointer hover:bg-green-100"
+          class="py-2 px-6 cursor-pointer hover:bg-green-100"
           :class="{cur: item.id===(curOriginal && curOriginal.id)}"
           @click="handleClick(item, 2)"
-        >第{{ item.id }}则</li>
+        >
+          <span v-if="item.id===220">跋一</span>
+          <span v-else-if="item.id===221">跋一</span>
+          <span v-else-if="item.id===222">跋一</span>
+          <span v-else>第{{ item.id }}则</span>
+        </li>
       </ul>
     </div>
     <div class="flex-1" v-if="curXu">
@@ -72,5 +98,6 @@ const handleClick = (item: IXu | IOriginal, type: number) => {
 <style lang="less" scoped>
 .cur{
   background-color: #a7f3d0;
+  font-weight: bold;
 }
 </style>
