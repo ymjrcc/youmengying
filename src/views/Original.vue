@@ -55,12 +55,14 @@ const handleClick = (item: IXu | IOriginal, type: number) => {
       </ul>
     </div>
     <div class="flex-1" v-if="curXu">
+      <p class="text-lg font-bold text-center mt-2 mb-4">幽梦影 {{ curXu.title }}</p>
       <p v-for="p in curXu.text" :key="p" class="indent-lg mb-4">{{ p }}</p>
     </div>
     <div class="flex-1" v-if="curOriginal">
+      <p class="text-lg font-bold text-center mt-2 mb-4">幽梦影 第{{ curOriginal.id }}则</p>
       <p v-for="p in curOriginal.text" :key="p" class="indent-lg mb-4">{{ p }}</p>
       <div>
-        <p class="mb-4">评论</p>
+        <p class="mb-4 font-bold mt-8">【评论】</p>
         <p v-for="p in curOriginal.comments" :key="p.author" class="indent-lg mb-4">{{ p.author }}曰：{{ p.comment }}</p>
       </div>
     </div>
