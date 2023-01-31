@@ -17,13 +17,13 @@ const handleClick = (item: IComment) => {
 </script>
 
 <template>
-  <div class="flex">
-    <div class="w-50">
-      <ul class="border mr-10">
+  <div class="flex h-full">
+    <div class="w-60">
+      <ul class="border mr-10 h-full overflow-auto">
         <li 
           v-for="item in comments" 
           :key="item.name"
-          class="py-2 px-4 cursor-pointer hover:bg-green-100"
+          class="py-2 px-6 cursor-pointer hover:bg-green-100"
           :class="{cur: item.name===(curComment && curComment.name)}"
           @click="handleClick(item)"
         >{{ item.name }}</li>
