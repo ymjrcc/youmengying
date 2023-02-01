@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import {ref} from 'vue'
-import { RouterLink } from 'vue-router'
+import { ref, onMounted } from 'vue';
+import type { Ref } from 'vue';
+import { RouterLink, useRoute } from 'vue-router'
 import comments from '@/assets/data/comments.json'
 
 interface IComment {
@@ -10,7 +11,18 @@ interface IComment {
   list: number[];
 }
 
-const curComment = ref(comments[0])
+const curComment: Ref<IComment | null> = ref(null)
+
+const route = useRoute()
+
+onMounted(() => {
+  if(!route.query || !route.query.name){
+    curComment.value = comments[0]
+    return
+  }
+  const value = comments.find(i => i.name===route.query.name)
+  curComment.value = value || comments[0]
+})
 
 const handleClick = (item: IComment) => {
   curComment.value = item
@@ -24,7 +36,7 @@ const handleClick = (item: IComment) => {
         <li 
           v-for="item in comments" 
           :key="item.name"
-          class="py-2 px-6 cursor-pointer hover:bg-green-100"
+          class="py-6px px-6 cursor-pointer hover:bg-green-100"
           :class="{cur: item.name===(curComment && curComment.name)}"
           @click="handleClick(item)"
         >{{ item.name }}</li>

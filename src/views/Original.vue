@@ -37,7 +37,7 @@ const handleClick = (item: IOriginal) => {
         <li 
           v-for="item in original" 
           :key="item.id" 
-          class="py-2 px-6 cursor-pointer hover:bg-green-100"
+          class="py-6px px-6 cursor-pointer hover:bg-green-100"
           :class="{cur: item.id===(curOriginal && curOriginal.id)}"
           @click="handleClick(item)"
         >

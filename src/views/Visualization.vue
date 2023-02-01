@@ -1,38 +1,45 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
-import * as echarts from 'echarts'
+import { ref, onMounted, watch } from 'vue'
+import ChartWords from '@/components/chart-words.vue'
+import ChartComments from '@/components/chart-comments.vue'
 
-onMounted(() => {
-  const chart1 = echarts.init(document.getElementById('chart1') as HTMLElement)
+const curTab = ref(1)
+
+watch(curTab, (newVal, oldVal) => {
   
-  chart1.setOption({
-    title: {
-      text: 'ECharts 入门示例'
-    },
-    tooltip: {},
-    xAxis: {
-      data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
-    },
-    yAxis: {},
-    series: [
-      {
-        name: '销量',
-        type: 'bar',
-        data: [5, 20, 36, 10, 10, 20]
-      }
-    ]
-  })
 })
 
 </script>
 
 <template>
-  <div>
-    可视化
-    <div class="h-100 w-100 bg-gray-200" id="chart1"></div>
+  <div class="flex h-full">
+    <div class="w-60">
+      <ul class="border mr-10 h-full overflow-auto">
+        <li class="py-2 px-6 cursor-pointer hover:bg-green-100" :class="{cur: curTab===1}" @click="curTab=1">
+          原文词频统计
+        </li>
+        <li class="py-2 px-6 cursor-pointer hover:bg-green-100" :class="{cur: curTab===2}" @click="curTab=2">
+          文友评论统计
+        </li>
+        <li class="py-2 px-6 cursor-pointer hover:bg-green-100" :class="{cur: curTab===3}" @click="curTab=3">
+          交游图
+        </li>
+      </ul>
+    </div>
+    <div class="flex-1" v-if="curTab===1">
+      <ChartWords />
+    </div>
+    <div class="flex-1" v-if="curTab===2">
+      <ChartComments />
+    </div>
+    <div class="flex-1" v-if="curTab===3">
+    </div>
   </div>
 </template>
 
-<style lang="less">
-
+<style lang="less" scoped>
+.cur{
+  background-color: #a7f3d0;
+  font-weight: bold;
+}
 </style>
