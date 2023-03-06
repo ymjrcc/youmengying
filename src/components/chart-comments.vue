@@ -45,6 +45,21 @@ onMounted(() => {
         show: true,
         position: 'top',
       },
+      itemStyle: {
+        color: {
+          type: 'linear',
+          x: 0,
+          y: 0,
+          x2: 1,
+          y2: 1,
+          colorStops: [{
+            offset: 0, color: '#6ee7b7' // 0% 处的颜色
+          }, {
+            offset: 1, color: '#10b981' // 100% 处的颜色
+          }],
+          global: false // 缺省为 false
+        }
+      },
       data: commentsList.map(i => i.value)
     }]
   })
@@ -75,6 +90,21 @@ onMounted(() => {
       label: {
         show: true,
         position: 'right',
+      },
+      itemStyle: {
+        color: {
+          type: 'linear',
+          x: 0,
+          y: 0,
+          x2: 1,
+          y2: 1,
+          colorStops: [{
+            offset: 0, color: '#fbbf24' // 0% 处的颜色
+          }, {
+            offset: 1, color: '#d97706' // 100% 处的颜色
+          }],
+          global: false // 缺省为 false
+        }
       },
       data: originalList.map(i => i.value)
     }]

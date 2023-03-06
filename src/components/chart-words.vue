@@ -25,7 +25,7 @@ onMounted(() => {
     },
     tooltip: {},
     legend: {
-      data:['出现次数(百分比)']
+      data: ['出现次数(百分比)']
     },
     yAxis: {
       data: wordsList.map(i => i.name),
@@ -38,6 +38,21 @@ onMounted(() => {
         show: true,
         position: 'right',
         formatter: (params: any) => `${params.value} (${params.data.percent}%)`
+      },
+      itemStyle: {
+        color: {
+          type: 'linear',
+          x: 0,
+          y: 0,
+          x2: 1,
+          y2: 1,
+          colorStops: [{
+            offset: 0, color: '#d1d5db' // 0% 处的颜色
+          }, {
+            offset: 1, color: '#6b7280' // 100% 处的颜色
+          }],
+          global: false // 缺省为 false
+        }
       },
       data: wordsList
     }]

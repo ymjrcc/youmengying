@@ -1,12 +1,15 @@
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue'
+import { ref, watch } from 'vue'
 import ChartWords from '@/components/chart-words.vue'
 import ChartComments from '@/components/chart-comments.vue'
+import useMap from './use-map'
 
 const curTab = ref(1)
 
 watch(curTab, (newVal, oldVal) => {
-  
+  if(newVal===3){
+    useMap()
+  }
 })
 
 </script>
@@ -33,6 +36,7 @@ watch(curTab, (newVal, oldVal) => {
       <ChartComments />
     </div>
     <div class="flex-1" v-if="curTab===3">
+        <div id="map" class="w-full h-full"></div>
     </div>
   </div>
 </template>
