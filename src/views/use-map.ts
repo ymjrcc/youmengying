@@ -24,7 +24,7 @@ export default function useMap() {
   ])
 
   const getMapJSON = async () => {
-    const res = await fetch('/static/china.json')
+    const res = await fetch('https://ymjrcc.github.io/youmengying/static/china.json')
     const json = await res.json()
     echarts.registerMap('china', json)
     initMap()
